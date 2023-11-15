@@ -1,0 +1,56 @@
+public class Empleado {
+    public int id;
+    public String nombre;
+    public String apellido;
+    public String ci;
+    public int tel;
+    public String seccion;
+    public String cargo;
+    public String fechaI;
+    public int sueldo;
+    public Empleado() {
+    }
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+    public String getNombre() {
+        return nombre;
+    }
+    public void setNombre (String nombre){
+        this.nombre = nombre;
+    }
+    public String getApellido() {
+        return apellido;
+    }
+    public void setApellido (String apellido){
+        this.apellido = apellido;
+    }
+    public String getCi() { return ci; }
+    public void setCi(String ci) {this.ci = ci;}
+    public int getTel() {
+        return tel;
+    }
+    public void setTel(int tel) {
+        this.tel = tel;
+    }
+    public String getSeccion() {
+        return seccion;
+    }
+    public void setSeccion (String seccion){
+        this.seccion = seccion;
+    }
+    public String getCargo() {
+        return cargo;
+    }
+    public void setCargo (String cargo){
+        this.cargo = cargo;
+    }
+    public String getFechaI() { return fechaI; }
+    public void setFechaI (String fechaI) {this.fechaI = fechaI;}
+    public int getSueldo() { return sueldo;}
+    public void setSueldo(int sueldo){this.sueldo = sueldo;}
+}
