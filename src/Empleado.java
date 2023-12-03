@@ -8,7 +8,17 @@ public class Empleado {
     public String cargo;
     public String fechaI;
     public int sueldo;
-    public Empleado() {
+    
+    public Empleado(int pId, String pNombre, String pApellido, String pCi, int pTel, String pSeccion, String pCargo, String pFecha, int pSueldo) {
+        this.id = pId;
+        this.nombre = pNombre;
+        this.apellido = pApellido;
+        this.ci = pCi;
+        this.tel = pTel;
+        this.seccion = pSeccion;
+        this.cargo = pCargo;
+        this.fechaI = pFecha;
+        this.sueldo = pSueldo;
     }
 
     public int getId() {
@@ -53,4 +63,15 @@ public class Empleado {
     public void setFechaI (String fechaI) {this.fechaI = fechaI;}
     public int getSueldo() { return sueldo;}
     public void setSueldo(int sueldo){this.sueldo = sueldo;}
+
+    @Override
+    public String toString() {
+        return "Empleado{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", seccion='" + seccion + '\'' +
+                ", cargo=" + cargo +
+                '}';
+    }
 }
