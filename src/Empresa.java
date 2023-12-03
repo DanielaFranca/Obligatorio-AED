@@ -137,11 +137,7 @@ public class Empresa {
          if (pEmpresa != null) {
             System.out.println("Seleccione lo que desea modificar: \n" +
                     "1 - Nombre: \n" +
-                    "2 - Apellido: \n" +
-                    "3 - CI: \n" +
-                    "4 - Sueldo: \n" +
-                    "5 - Cargo: \n" +
-                    "6 - Sección: \n" +
+                    "2 - Direccion: \n" +
                     "0 - Volver");
             int opcion = keyboard.nextInt();
             keyboard.nextLine();
