@@ -17,8 +17,8 @@ public class Sistema {
                 short opcion = keyboard.nextShort();
                 switch (opcion) {
                     case 1:
-                    //    MetodosEmpleados pMetodoE = new MetodosEmpleados();
-                    //    pMetodoE.gestionJugadores(keyboard);
+                        Empleado pEmpleado = new Empleado();
+                        pEmpleado.gestionEmpleados(keyboard);
                         break;
                     case 2:
                     //    MetodosTecnico pMetodoT = new MetodosTecnico();
