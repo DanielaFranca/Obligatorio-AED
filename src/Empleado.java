@@ -119,6 +119,7 @@ public class Empleado {
 
         System.out.print("Id: ");
         int pId = scanner.nextInt();
+        scanner.nextLine();
 
         System.out.print("Nombre: ");
         String pNombre = scanner.nextLine();
@@ -131,6 +132,7 @@ public class Empleado {
 
         System.out.print("Teléfono: ");
         int pTel = scanner.nextInt();
+        scanner.nextLine();
 
         System.out.print("Sección: ");
         String pSeccion = scanner.nextLine();
