@@ -6,11 +6,14 @@ public class Sucursal {
     public String id;
     public String nombre;
     public String ciudad;
-    public Sucursal(String pid,String pnombre, String pciudad) {
+    public Empresa empresa;
+    public ArrayList<Empleado> empleadosSucursal;
+    public Sucursal(String pid,String pnombre, String pciudad, Empresa pEmpresa, ArrayList<Empleado> pListaEmpleados) {
         this.id = pid;
         this.nombre = pnombre;
         this.ciudad = pciudad;
-
+        this.empresa = pEmpresa;
+        this.empleadosSucursal = pListaEmpleados;
     }
 
     public String getId() {
@@ -35,14 +38,31 @@ public class Sucursal {
     public void setCiudad(String ciudad) {
         this.ciudad = ciudad;
     }
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
+    }
+    public List<Empleado> getEmpleadosSucursal() {
+        return empleadosSucursal;
+    }
+    public void setEmpleadosSucursal(ArrayList<Empleado> empleadosSucursal) {
+        this.empleadosSucursal = empleadosSucursal;
+    }
 
     @Override
     public String toString() {
-        return "Sucursal{" +
+        return "Sucursal" +
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
-                ", ciudad=" + ciudad +
-                '}';
+                ", ciudad=" + ciudad;
+    }
+    public List<Empleado> obtenerEmpleados() {
+        return empleadosSucursal;
+    }
+    public void agregarEmpleado(Empleado empleado) {
+        empleadosSucursal.add(empleado);
     }
 
     public static void gestionSucursal(Scanner keyboard){
@@ -54,6 +74,7 @@ public class Sucursal {
                     "2- Actualizar Sucursal \n" +
                     "3- Eliminar Sucursal \n" +
                     "4- Listar Sucursal \n" +
+                    "5- Listar empleados de la sucursal en orden jerárgico \n" +
                     "0- Volver");
             //     try {
             short opcion4 = keyboard.nextShort();
@@ -70,6 +91,9 @@ public class Sucursal {
                 case 4:
                     listarSucursal();
                     break;
+                case 5:
+                    listarEmpleadosEnOrden(keyboard);
+                    break;
                 case 0:
                     salir = true;
                     break;
@@ -82,6 +106,7 @@ public class Sucursal {
 
 
     static ArrayList<Sucursal> pListaSucursal = new ArrayList<Sucursal>();
+    
     public static void altaSucursal(Scanner keyboard){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Ingrese los datos de la sucursal:");
@@ -95,7 +120,15 @@ public class Sucursal {
         System.out.print("ciudad: ");
         String  pciudad = scanner.nextLine();
 
-        Sucursal pSucursal = new Sucursal(pid,pNombre,pciudad);
+        System.out.println("Empresas habilitadas:");
+        Empresa.listarEmpresa();
+        System.out.print("Seleccione el nombre de su empresa: ");
+        String idEmpresa = scanner.nextLine();
+        Empresa pEmpresa = Empresa.buscarEmpresa(idEmpresa);
+        
+        ArrayList<Empleado> pListaE = new ArrayList<Empleado>();        
+
+        Sucursal pSucursal = new Sucursal(pid, pNombre, pciudad, pEmpresa, pListaE);
         long cantidad = pListaSucursal.size();
         pListaSucursal.add(pSucursal);
         if(pListaSucursal.size() > cantidad){
@@ -178,6 +211,42 @@ public class Sucursal {
             }
         }
         return lapSucursal;
+    }
+
+    public static void listarEmpleadosEnOrden(Scanner keyboard){
+        Scanner scanner = new Scanner(System.in);
+        listarSucursales();
+        System.out.print("Seleccione nombre de la sucursal: ");
+        String nombreSucursal = scanner.nextLine();
+        Sucursal pSucursal = Sucursal.buscarSucursal(nombreSucursal);
+
+        List<Empleado> empleadosOrdenados = null;
+
+        //ordenar lista
+        for (Empleado pEmpleado : pSucursal.empleadosSucursal){
+            for (int i = 0; i < 4; i++){
+                if (pEmpleado.Ncargo == i){
+                    empleadosOrdenados.add(pEmpleado);
+                }
+            }
+        }
+        System.out.println("Lista de Empleados en orden jerárgico:");
+        for (Empleado pEmpleado : empleadosOrdenados) {
+            System.out.println(pEmpleado.toString());
+        }
+
+
+      /*  for (Empleado pEmpleado : pSucursal.empleadosSucursal) {
+            for (pEmpleado.Ncargo = 1; pEmpleado.Ncargo < 4; pEmpleado.Ncargo++){
+                if (pEmpleado.Ncargo == 1){
+                    System.out.println("Gerente: " + pEmpleado.nombre + " " + pEmpleado.apellido);
+                } else if (pEmpleado.Ncargo == 2) {
+                    System.out.println("Supervisor: " + pEmpleado.nombre + " " + pEmpleado.apellido);
+                } else if (pEmpleado.Ncargo == 3) {
+                    System.out.println("Vendedor: " + pEmpleado.nombre + " " + pEmpleado.apellido);
+                }
+            }
+        } */
     }
 
 
