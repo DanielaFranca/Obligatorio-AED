@@ -13,7 +13,6 @@ public class Empleado {
     public int Ncargo;
     public String fechaI;
     public int sueldo;
-    
     public Empleado(int pId, String pNombre, String pApellido, String pCi, int pTel, String pSeccion, Sucursal pSucrusal, String pCargo, int pNcargo, String pFecha, int pSueldo) {
         this.id = pId;
         this.nombre = pNombre;
@@ -32,7 +31,7 @@ public class Empleado {
     public int getId() {
         return id;
     }
-    public void setId(int id) {
+    public void setId (int id) {
         this.id = id;
     }
     public String getNombre() {
@@ -87,16 +86,14 @@ public class Empleado {
     @Override
     public String toString() {
         return "Empleado" +
-                "Id: " + id +
-                ", Nombre: '" + nombre + '\'' +
-                ", Apellido: '" + apellido + '\'' +
-                ", Seccion: '" + seccion + '\'' +
-                ", Cargo: " + cargo ;
+                "Id=" + id +
+                ", Nombre='" + nombre + '\'' +
+                ", Apellido='" + apellido + '\'' +
+                ", Seccion='" + seccion + '\'' +
+                ", Cargo=" + cargo;
     }
-    
+
     static ArrayList<Empleado> pListaEmpleados = new ArrayList<Empleado>();
-    
-    
     public static void gestionEmpleados(Scanner keyboard){
         limpiarConsola();
         boolean salir = false;
@@ -131,9 +128,8 @@ public class Empleado {
             }
         }
     }
-
     //region METODOS ABM
-    public static void altaEmpleado(Scanner keyboard){
+    public static void altaEmpleado(Scanner keyboard) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Ingrese los datos del empleado:");
 
@@ -155,38 +151,77 @@ public class Empleado {
         scanner.nextLine();
 
         System.out.print("Sección: ");
-        String pSeccion = scanner.nextLine();
+        System.out.println("Debe elegir una de las siguientes opciones: ");
+        System.out.println("1 - Atención al público");
+        System.out.println("2 - Contabilidad");
+        String pSeccion = null;
+        short opcion2 = keyboard.nextShort();
+        switch (opcion2) {
+            case 1:
+                pSeccion = "Atención al público";
+                break;
+            case 2:
+                pSeccion = "Contabilidad";
+                break;
+            default:
+                System.out.println("La opcion ingresada no es correcta");
+                break;
+        }
 
         System.out.print("Sucursales habilitadas: ");
         Sucursal.listarSucursales();
         System.out.print("Seleccione nombre de la sucursal: ");
         String nombreSucursal = scanner.nextLine();
         Sucursal pSucursal = Sucursal.buscarSucursal(nombreSucursal);
+        
 
-        System.out.println("Cargo: ");
-        System.out.println("Debe elegir una de las siguientes opciones: ");
-        System.out.println("Gerente de sucursal");
-        System.out.println("Supervisor");
-        System.out.println("Vendedor");
-        String pCargo = scanner.nextLine();
-
-        String opcion = pCargo;
+        String pCargo = null;
         int pNcargo = 0;
-        switch (opcion) {
-            case "Gerente de sucursal":
-                pNcargo = 1;
-                break;
-            case "Supervisor":
-                pNcargo = 2;
-                break;
-            case "Vendedor":
-                pNcargo = 3;
-                break;
-            default:
-                System.out.println("La opcion ingresada no es correcta, debe ingresar uno de los cargos existentes");
-                break;
+        if (pSeccion == "Atención al público") {
+            System.out.println("1 - Supervisor de sucursal");
+            System.out.println("2 - Encargado");
+            System.out.println("3 - Vendedor");
+            short opcion6 = keyboard.nextShort();
+            switch (opcion6) {
+                case 1:
+                    pCargo = "Supervisor de sucursal";
+                    pNcargo = 1;
+                    break;
+                case 2:
+                    pCargo = "Encargado";
+                    pNcargo = 2;
+                    break;
+                case 3:
+                    pCargo = "Vendedor";
+                    pNcargo = 3;
+                    break;
+                default:
+                    System.out.println("La opción ingresada no es correcta, debe ingresar uno de los cargos existentes");
+                    break;
+            }
+        } else if (pSeccion == "Contabilidad"){
+            System.out.println("1 - Contador de sucursal");
+            System.out.println("2 - Analista financiero");
+            System.out.println("3 - Analista contable");
+            short opcion8 = keyboard.nextShort();
+            switch (opcion8) {
+                case 1:
+                    pCargo = "Contador de sucursal";
+                    pNcargo = 1;
+                    break;
+                case 2:
+                    pCargo = "Analista financiero";
+                    pNcargo = 2;
+                    break;
+                case 3:
+                    pCargo = "Analista contable";
+                    pNcargo = 3;
+                    break;
+                default:
+                    System.out.println("La opción ingresada no es correcta, debe ingresar uno de los cargos existentes");
+                    break;
+            }
         }
-        scanner.nextLine();
 
         System.out.print("Fecha: ");
         String pFecha = scanner.nextLine();
@@ -216,6 +251,7 @@ public class Empleado {
             pSucursal.agregarEmpleado(pEmpleado);
             System.out.println("Empleado agregado a la sucursal correctamente");
         }
+
     }
     public static void eliminarEmpleado(Scanner keyboard){
         Scanner scanner = new Scanner(System.in);
