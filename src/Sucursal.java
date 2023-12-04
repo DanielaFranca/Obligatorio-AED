@@ -213,27 +213,44 @@ public class Sucursal {
         return lapSucursal;
     }
 
-    public static void listarEmpleadosEnOrden(Scanner keyboard){
+   public static void listarEmpleadosEnOrden(Scanner keyboard){
         Scanner scanner = new Scanner(System.in);
         listarSucursales();
         System.out.print("Seleccione nombre de la sucursal: ");
         String nombreSucursal = scanner.nextLine();
         Sucursal pSucursal = Sucursal.buscarSucursal(nombreSucursal);
 
-        List<Empleado> empleadosOrdenados = null;
+       /* for (int i = 0; i < pSucursal.empleadosSucursal.size(); i++){
+            for (int j = 0; j < pSucursal.empleadosSucursal.size() - 1; j++){
+                if (pSucursal.empleadosSucursal.get(j).Ncargo < pSucursal.empleadosSucursal.get(j+1).Ncargo){
+                    Empleado burbuja = pSucursal.empleadosSucursal.get(j);
+                    pSucursal.empleadosSucursal.set(j, pSucursal.empleadosSucursal.get(j+1));
+                    pSucursal.empleadosSucursal.set(j+1, burbuja);
+                    //pSucursal.empleadosSucursal.get(j) = pSucursal.empleadosSucursal.get(j+1);
+                    //pSucursal.empleadosSucursal.get(j+1) = burbuja;
+                    //Collections.swap(pSucursal.empleadosSucursal, j, j+1);
+
+                }
+            }
+        } */
+        ArrayList<Empleado> empleadosOrdenados = new ArrayList<Empleado>();
 
         //ordenar lista
         for (Empleado pEmpleado : pSucursal.empleadosSucursal){
             for (int i = 0; i < 4; i++){
-                if (pEmpleado.Ncargo == i){
-                    empleadosOrdenados.add(pEmpleado);
+                for (int j = 0; i < 4; j++){
+                    if (pEmpleado.Ncargo == j){
+                        empleadosOrdenados.add(pEmpleado);
+                    }
                 }
+
             }
         }
         System.out.println("Lista de Empleados en orden jerárgico:");
         for (Empleado pEmpleado : empleadosOrdenados) {
             System.out.println(pEmpleado.toString());
         }
+
 
 
       /*  for (Empleado pEmpleado : pSucursal.empleadosSucursal) {
@@ -248,7 +265,6 @@ public class Sucursal {
             }
         } */
     }
-
 
     private static void limpiarConsola() {
         System.out.print("\033[H\033[2J");
