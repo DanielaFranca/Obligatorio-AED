@@ -8,21 +8,26 @@ public class Empleado {
     public String ci;
     public int tel;
     public String seccion;
+    public Sucursal sucursal;
     public String cargo;
+    public int Ncargo;
     public String fechaI;
     public int sueldo;
     
-    public Empleado(int pId, String pNombre, String pApellido, String pCi, int pTel, String pSeccion, String pCargo, String pFecha, int pSueldo) {
+    public Empleado(int pId, String pNombre, String pApellido, String pCi, int pTel, String pSeccion, Sucursal pSucrusal, String pCargo, int pNcargo, String pFecha, int pSueldo) {
         this.id = pId;
         this.nombre = pNombre;
         this.apellido = pApellido;
         this.ci = pCi;
         this.tel = pTel;
         this.seccion = pSeccion;
+        this.sucursal = pSucrusal;
         this.cargo = pCargo;
+        this.Ncargo = pNcargo;
         this.fechaI = pFecha;
         this.sueldo = pSueldo;
     }
+    public Empleado() {}
 
     public int getId() {
         return id;
@@ -56,11 +61,23 @@ public class Empleado {
     public void setSeccion (String seccion){
         this.seccion = seccion;
     }
+    public Sucursal getSucursal() {
+        return sucursal;
+    }
+    public void setSucursal (Sucursal sucursal){
+        this.sucursal = sucursal;
+    }
     public String getCargo() {
         return cargo;
     }
     public void setCargo (String cargo){
         this.cargo = cargo;
+    }
+    public int getNcargo() {
+        return Ncargo;
+    }
+    public void setNcargo(int Ncargo) {
+        this.Ncargo = Ncargo;
     }
     public String getFechaI() { return fechaI; }
     public void setFechaI (String fechaI) {this.fechaI = fechaI;}
@@ -69,16 +86,17 @@ public class Empleado {
 
     @Override
     public String toString() {
-        return "Empleado{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
-                ", seccion='" + seccion + '\'' +
-                ", cargo=" + cargo +
-                '}';
+        return "Empleado" +
+                "Id: " + id +
+                ", Nombre: '" + nombre + '\'' +
+                ", Apellido: '" + apellido + '\'' +
+                ", Seccion: '" + seccion + '\'' +
+                ", Cargo: " + cargo ;
     }
-    //region METODOS ABM
+    
     static ArrayList<Empleado> pListaEmpleados = new ArrayList<Empleado>();
+    
+    
     public static void gestionEmpleados(Scanner keyboard){
         limpiarConsola();
         boolean salir = false;
@@ -113,6 +131,8 @@ public class Empleado {
             }
         }
     }
+
+    //region METODOS ABM
     public static void altaEmpleado(Scanner keyboard){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Ingrese los datos del empleado:");
@@ -137,8 +157,36 @@ public class Empleado {
         System.out.print("Sección: ");
         String pSeccion = scanner.nextLine();
 
-        System.out.print("Cargo: ");
+        System.out.print("Sucursales habilitadas: ");
+        Sucursal.listarSucursales();
+        System.out.print("Seleccione nombre de la sucursal: ");
+        String nombreSucursal = scanner.nextLine();
+        Sucursal pSucursal = Sucursal.buscarSucursal(nombreSucursal);
+
+        System.out.println("Cargo: ");
+        System.out.println("Debe elegir una de las siguientes opciones: ");
+        System.out.println("Gerente de sucursal");
+        System.out.println("Supervisor");
+        System.out.println("Vendedor");
         String pCargo = scanner.nextLine();
+
+        String opcion = pCargo;
+        int pNcargo = 0;
+        switch (opcion) {
+            case "Gerente de sucursal":
+                pNcargo = 1;
+                break;
+            case "Supervisor":
+                pNcargo = 2;
+                break;
+            case "Vendedor":
+                pNcargo = 3;
+                break;
+            default:
+                System.out.println("La opcion ingresada no es correcta, debe ingresar uno de los cargos existentes");
+                break;
+        }
+        scanner.nextLine();
 
         System.out.print("Fecha: ");
         String pFecha = scanner.nextLine();
@@ -147,14 +195,26 @@ public class Empleado {
         int pSueldo = scanner.nextInt();
         scanner.nextLine();
 
-        Empleado pEmpleado = new Empleado(pId, pNombre, pApellido, pCi, pTel, pSeccion, pCargo, pFecha, pSueldo);
-        long cantidad = pListaEmpleados.size();
-        pListaEmpleados.add(pEmpleado);
-        if(pListaEmpleados.size() > cantidad){
-            System.out.println("Empleado agregado correctamente");
+        Empleado pEmpleado = new Empleado(pId, pNombre, pApellido, pCi, pTel, pSeccion, pSucursal, pCargo, pNcargo, pFecha, pSueldo);
+        int cantEmpleadosPuesto = 0;
+        for (Empleado pEmpleado2 : pSucursal.empleadosSucursal){
+            if (pEmpleado2.Ncargo == pNcargo){
+                cantEmpleadosPuesto++;
+                break;
+            }
         }
-        else{
-            System.out.println("Error al guardar el empleado");
+          // ver que no haya 2 gerentes
+        if (cantEmpleadosPuesto == 1 && pNcargo == 1){
+            System.out.println("Ya hay un gerente en esta sucursal");
+            // ver que no haya 3 supervisores
+        } else if (cantEmpleadosPuesto == 2 && pNcargo == 2) {
+            System.out.println("Ya hay suficientes supervisores en esta sucursal");
+            // ver que no haya 5 vendedores
+        } else if (cantEmpleadosPuesto == 4 && pNcargo == 3) {
+            System.out.println("Ya hay suficientes vendedores en esta sucursal");
+        } else {
+            pSucursal.agregarEmpleado(pEmpleado);
+            System.out.println("Empleado agregado a la sucursal correctamente");
         }
     }
     public static void eliminarEmpleado(Scanner keyboard){
