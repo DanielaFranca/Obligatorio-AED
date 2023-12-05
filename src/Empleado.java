@@ -104,6 +104,7 @@ public class Empleado {
                     "3- Eliminar Empleado \n" +
                     "4- Listar Empleados \n" +
                     "5- Listar Empleados por sección\n" +
+                    "6- Subordinados de un empleado \n" +
                     "0- Volver");
             //     try {
             short opcion4 = keyboard.nextShort();
@@ -122,6 +123,9 @@ public class Empleado {
                     break;
                 case 5:
                     listarEmpleadosPorSeccion(keyboard);
+                    break;
+                case 6:
+                    arbolDeEmpleado(keyboard);
                     break;
                 case 0:
                     salir = true;
@@ -254,6 +258,7 @@ public class Empleado {
         } else {
             pSucursal.agregarEmpleado(pEmpleado);
             System.out.println("Empleado agregado a la sucursal correctamente");
+            pListaEmpleados.add(pEmpleado);
         }
 
     }
@@ -323,9 +328,9 @@ public class Empleado {
     public static void actualizarEmpleados(Scanner keyboard){
         keyboard.nextLine();
         listarEmpleados();
-        System.out.println("Ingrese CI del empleado que desee modificar:");
-        String pCi = keyboard.nextLine();
-        Empleado pEmpleado = buscarEmpleado(pCi);
+        System.out.println("Ingrese el ID del empleado que desee modificar:");
+        int pID = keyboard.nextInt();
+        Empleado pEmpleado = buscarEmpleado(pID);
         boolean salir = false;
         while(salir == false) {
             if (pEmpleado != null) {
@@ -389,15 +394,38 @@ public class Empleado {
             }
         }
     }
-    public static Empleado buscarEmpleado(String pCI){
+    public static Empleado buscarEmpleado(int pID){
         Empleado elEmpleado = null;
         for (Empleado pEmpleado : pListaEmpleados){
-            if(pEmpleado.getCi().equalsIgnoreCase(pCI)){
+            if(pEmpleado.id == pID){
                 elEmpleado = pEmpleado;
                 break;
             }
         }
         return elEmpleado;
+    }
+    public static void arbolDeEmpleado(Scanner keyboard){
+        Scanner scanner = new Scanner(System.in);
+        listarEmpleados();
+        System.out.println("Ingrese el ID del empleado que busca:");
+        int pID = scanner.nextInt();
+        Empleado Jefecito = buscarEmpleado(pID);
+
+        ArrayList<Empleado> subordinados = new ArrayList<Empleado>();
+        subordinados.add(Jefecito);
+
+        for (Empleado pEmpleado : pListaEmpleados){
+            if ((pEmpleado.sucursal == Jefecito.sucursal) && (pEmpleado.seccion == Jefecito.seccion) && (pEmpleado.Ncargo > Jefecito.Ncargo)){
+                subordinados.add(pEmpleado);
+            }
+        }
+
+        System.out.println("Los datos del empleado consultado y sus subordinados son:" +
+                ":");
+        for (Empleado pEmpleado : subordinados) {
+            System.out.println(pEmpleado.toString());
+        }
+
     }
     private static void limpiarConsola() {
         System.out.print("\033[H\033[2J");
