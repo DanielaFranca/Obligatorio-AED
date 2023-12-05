@@ -98,12 +98,12 @@ public class Empleado {
         limpiarConsola();
         boolean salir = false;
         while(salir == false){
-            System.out.println("Ingrese la opcion deseada\n" +
+            System.out.println("Ingrese la opcion deseada \n" +
                     "1- Alta Empleado \n" +
                     "2- Actualizar Empleado \n" +
                     "3- Eliminar Empleado \n" +
                     "4- Listar Empleados \n" +
-                    "5- Listar Empleados por sección\n" +
+                    "5- Listar Empleados por sección \n" +
                     "6- Subordinados de un empleado \n" +
                     "0- Volver");
             //     try {
@@ -158,7 +158,7 @@ public class Empleado {
         int pTel = scanner.nextInt();
         scanner.nextLine();
 
-        System.out.print("Sección: ");
+        System.out.println("Sección: ");
         System.out.println("Debe elegir una de las siguientes opciones: ");
         System.out.println("1 - Atención al público");
         System.out.println("2 - Contabilidad");
@@ -178,13 +178,15 @@ public class Empleado {
 
         System.out.print("Sucursales habilitadas: ");
         Sucursal.listarSucursales();
-        System.out.print("Seleccione nombre de la sucursal: ");
+        System.out.println("Seleccione nombre de la sucursal: ");
         String nombreSucursal = scanner.nextLine();
         Sucursal pSucursal = Sucursal.buscarSucursal(nombreSucursal);
-        
+
 
         String pCargo = null;
         int pNcargo = 0;
+        System.out.println("Cargo: ");
+        System.out.println("Debe elegir una de las siguientes opciones: ");
         if (pSeccion == "Atención al público") {
             System.out.println("1 - Supervisor de sucursal");
             System.out.println("2 - Encargado");
