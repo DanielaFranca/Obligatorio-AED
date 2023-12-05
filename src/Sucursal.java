@@ -16,6 +16,10 @@ public class Sucursal {
         this.empleadosSucursal = pListaEmpleados;
     }
 
+    public Sucursal() {
+
+    }
+
     public String getId() {
         return id;
     }
@@ -74,7 +78,6 @@ public class Sucursal {
                     "2- Actualizar Sucursal \n" +
                     "3- Eliminar Sucursal \n" +
                     "4- Listar Sucursal \n" +
-                    "5- Listar empleados de la sucursal en orden jerárgico \n" +
                     "0- Volver");
             //     try {
             short opcion4 = keyboard.nextShort();
@@ -91,9 +94,6 @@ public class Sucursal {
                 case 4:
                     listarSucursal();
                     break;
-                case 5:
-                    listarEmpleadosEnOrden(keyboard);
-                    break;
                 case 0:
                     salir = true;
                     break;
@@ -106,7 +106,7 @@ public class Sucursal {
 
 
     static ArrayList<Sucursal> pListaSucursal = new ArrayList<Sucursal>();
-    
+
     public static void altaSucursal(Scanner keyboard){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Ingrese los datos de la sucursal:");
@@ -125,8 +125,8 @@ public class Sucursal {
         System.out.print("Seleccione el nombre de su empresa: ");
         String idEmpresa = scanner.nextLine();
         Empresa pEmpresa = Empresa.buscarEmpresa(idEmpresa);
-        
-        ArrayList<Empleado> pListaE = new ArrayList<Empleado>();        
+
+        ArrayList<Empleado> pListaE = new ArrayList<Empleado>();
 
         Sucursal pSucursal = new Sucursal(pid, pNombre, pciudad, pEmpresa, pListaE);
         long cantidad = pListaSucursal.size();
@@ -213,9 +213,9 @@ public class Sucursal {
         return lapSucursal;
     }
 
-   public static void listarEmpleadosEnOrden(Scanner keyboard){
+    public static void listarEmpleadosEnOrden(Scanner keyboard){
         Scanner scanner = new Scanner(System.in);
-        listarSucursales();
+        listarSucursal();
         System.out.print("Seleccione nombre de la sucursal: ");
         String nombreSucursal = scanner.nextLine();
         Sucursal pSucursal = Sucursal.buscarSucursal(nombreSucursal);
@@ -246,7 +246,7 @@ public class Sucursal {
 
             }
         } */
-       for (Empleado pEmpleado : pSucursal.empleadosSucursal) {
+        for (Empleado pEmpleado : pSucursal.empleadosSucursal) {
             int i = 0;
             while (i < empleadosOrdenados.size() && pEmpleado.Ncargo > empleadosOrdenados.get(i).Ncargo) {
                 i++;
