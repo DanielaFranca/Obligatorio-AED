@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ArbolABB {
@@ -52,7 +51,7 @@ public class ArbolABB {
     }
 
 
-    public void preOrderSeccion() {
+    public void preOrderSeccion(Scanner keyboard) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Seleccione sección: ");
         System.out.println("1 - Atención al público");
@@ -86,9 +85,9 @@ public class ArbolABB {
         }
     }
 
-    public void preOrderSucursal() {
+    public void preOrderSucursal(Scanner keyboard) {
         Scanner scanner = new Scanner(System.in);
-        Sucursal.listarSucursales();
+        Sucursal.listarSucursal();
         System.out.print("Seleccione nombre de la sucursal: ");
         String nombreSucursal = scanner.nextLine();
         Sucursal pSucursal = Sucursal.buscarSucursal(nombreSucursal);
@@ -109,7 +108,7 @@ public class ArbolABB {
         }
     }
 
-    public void preOrderSubordinados() {
+    public void preOrderSubordinados(Scanner keyboard) {
         Scanner scanner = new Scanner(System.in);
         Empleado.listarEmpleados();
         System.out.println("Ingrese el ID del empleado que busca:");
