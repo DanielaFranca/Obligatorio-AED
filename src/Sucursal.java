@@ -236,7 +236,7 @@ public class Sucursal {
         ArrayList<Empleado> empleadosOrdenados = new ArrayList<Empleado>();
 
         //ordenar lista
-        for (Empleado pEmpleado : pSucursal.empleadosSucursal){
+        /* for (Empleado pEmpleado : pSucursal.empleadosSucursal){
             for (int i = 0; i < 4; i++){
                 for (int j = 0; i < 4; j++){
                     if (pEmpleado.Ncargo == j){
@@ -245,6 +245,17 @@ public class Sucursal {
                 }
 
             }
+        } */
+       for (Empleado pEmpleado : pSucursal.empleadosSucursal) {
+            int i = 0;
+            while (i < empleadosOrdenados.size() && pEmpleado.Ncargo > empleadosOrdenados.get(i).Ncargo) {
+                i++;
+            }
+            empleadosOrdenados.add(i, pEmpleado);
+        }
+        System.out.println("Lista de Empleados en orden jerárgico:");
+        for (Empleado pEmpleado : empleadosOrdenados) {
+            System.out.println(pEmpleado.toString());
         }
         System.out.println("Lista de Empleados en orden jerárgico:");
         for (Empleado pEmpleado : empleadosOrdenados) {
