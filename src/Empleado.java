@@ -103,6 +103,7 @@ public class Empleado {
                     "2- Actualizar Empleado \n" +
                     "3- Eliminar Empleado \n" +
                     "4- Listar Empleados \n" +
+                    "5- Listar Empleados por sección\n" +
                     "0- Volver");
             //     try {
             short opcion4 = keyboard.nextShort();
@@ -118,6 +119,9 @@ public class Empleado {
                     break;
                 case 4:
                     listarEmpleados();
+                    break;
+                case 5:
+                    listarEmpleadosPorSeccion(keyboard);
                     break;
                 case 0:
                     salir = true;
@@ -274,6 +278,47 @@ public class Empleado {
         for (Empleado empleado : pListaEmpleados) {
             System.out.println(empleado);
         }
+    }
+    public static void listarEmpleadosPorSeccion(Scanner keyboard){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Seleccione sección: ");
+        System.out.println("1 - Atención al público");
+        System.out.println("2 - Contabilidad");
+        String pSeccionE = null;
+        short opcion2 = keyboard.nextShort();
+        switch (opcion2) {
+            case 1:
+                pSeccionE = "Atención al público";
+                break;
+            case 2:
+                pSeccionE = "Contabilidad";
+                break;
+            default:
+                System.out.println("La opcion ingresada no es correcta");
+                break;
+        }
+
+        ArrayList<Empleado> empleadosPorSeccion = new ArrayList<Empleado>();
+        for (Empleado pEmpleado : pListaEmpleados){
+            if (pEmpleado.seccion == pSeccionE){
+                empleadosPorSeccion.add(pEmpleado);
+            }
+        }
+
+       ArrayList<Empleado> empleadosOrdenados = new ArrayList<Empleado>();
+        for (Empleado pEmpleado : empleadosPorSeccion) {
+            int i = 0;
+            while (i < empleadosOrdenados.size() && pEmpleado.Ncargo > empleadosOrdenados.get(i).Ncargo) {
+                i++;
+            }
+            empleadosOrdenados.add(i, pEmpleado);
+        }
+        System.out.println("Lista de Empleados en orden jerárgico de una sección" +
+                ":");
+        for (Empleado pEmpleado : empleadosOrdenados) {
+            System.out.println(pEmpleado.toString());
+        }
+
     }
     public static void actualizarEmpleados(Scanner keyboard){
         keyboard.nextLine();
