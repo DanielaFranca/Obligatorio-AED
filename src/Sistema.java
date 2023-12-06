@@ -8,21 +8,32 @@ public class Sistema {
         while(salir == false) {
 
             ArbolABB arbolABB = new ArbolABB();
+            Empleado empleado = new Empleado();
+            Sucursal sucursal = new Sucursal();
+            Empresa empresa = new Empresa();
 
             //agregar objetos
             Empresa empresa1 = new Empresa("1", "Grido", "18 de julio 2021");
-            Sucursal sucursal1 = new Sucursal("2", "Shopping", "Colonia", empresa1, null);
-            Empleado empleado1 = new Empleado(1, "Juan", "Pérez", "123456789", 555123456, "Atención al público", sucursal1, "Vendedor", 3, "2023-01-01", 3000);
-            //  Empleado empleado2 = new Empleado(2, "María", "López", "987654321", 555987654, "Contabilidad", sucursal1, "Contador de sucursal", 1, "2023-02-01", 4000);
+
+            Sucursal sucursal1 = new Sucursal("1", "Shopping", "Colonia", empresa1, null);
+            Sucursal sucursal2 = new Sucursal("2", "Terminal", "Carmelo", empresa1, null);
+
             Empleado empleado3 = new Empleado(3, "Pedro", "González", "456789012", 555456789, "Atención al público", sucursal1, "Encargado", 2, "2023-03-01", 3500);
-            Empleado empleado5 = new Empleado(5, "Juan", "Pérez", "123456789", 555123456, "Atención al público", sucursal1, "Vendedor", 3, "2023-01-01", 3000);
+            Empleado empleado1 = new Empleado(1, "Juan", "Pérez", "123456789", 555123456, "Atención al público", sucursal1, "Vendedor", 3, "2023-01-01", 3000);
+            Empleado empleado5 = new Empleado(5, "María", "López", "987654321", 555987654, "Contabilidad", sucursal1, "Contador de sucursal", 1, "2023-02-01", 4000);
 
-
-            arbolABB.insertar(empleado1);
-            //arbolABB.insertar(empleado2);
-            arbolABB.insertar(empleado5);
             arbolABB.insertar(empleado3);
+            arbolABB.insertar(empleado1);
+            arbolABB.insertar(empleado5);
 
+            empresa.insertar(empresa1);
+
+            sucursal.insertar(sucursal1);
+           // sucursal.insertar(sucursal2);
+
+            empleado.insertar(empleado3);
+            empleado.insertar(empleado1);
+            empleado.insertar(empleado5);
 
 
             System.out.println("Bienvenido!\n" +
