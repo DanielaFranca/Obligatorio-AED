@@ -261,6 +261,8 @@ public class Empleado {
             pSucursal.agregarEmpleado(pEmpleado);
             System.out.println("Empleado agregado a la sucursal correctamente");
             pListaEmpleados.add(pEmpleado);
+            ArbolABB arbolABB = new ArbolABB();
+            arbolABB.insertar(pEmpleado);
         }
 
     }
@@ -428,6 +430,11 @@ public class Empleado {
             System.out.println(pEmpleado.toString());
         }
 
+    }
+    public static void insertar (Empleado pEmpleado){
+        pListaEmpleados.add(pEmpleado);
+        ArbolABB arbolABB = new ArbolABB();
+       // arbolABB.insertar(pEmpleado);
     }
     private static void limpiarConsola() {
         System.out.print("\033[H\033[2J");
